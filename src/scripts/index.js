@@ -1,6 +1,8 @@
 import '../styles/index.scss';
 
-const payments = [];
+import { tarifs } from './constants';
+
+let payments = [];
 let payment = {};
 
 const companies = document.getElementById('companies');
