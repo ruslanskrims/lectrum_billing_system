@@ -8,6 +8,8 @@ const meters = document.getElementById('meters');
 
 companies.onclick = (event) => {
     const id = event.target.getAttribute('data-id');
+    const element = document.querySelector(`[data-id=${id}]`);
+    element.style = "background-color: #ccc;";
 
     payment.id = id;
 };
