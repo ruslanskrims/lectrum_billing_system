@@ -1,5 +1,6 @@
 import '../styles/index.scss';
 
+const payments = [];
 let payment = {};
 
 const companies = document.getElementById('companies');
