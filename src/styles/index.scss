@@ -1,0 +1,80 @@
+@import "./left.scss";
+@import "./center.scss";
+@import "./right.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #fff;
+  color: #253858;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.wrapper {
+  width: 1322px;
+  height: 700px;
+  background-color: #f9f9fc;
+  margin: 50px auto;
+  padding: 16px 32px 76px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 248px auto 330px;
+  grid-gap: 32px;
+  grid-template-rows: 608px;
+  grid-template-areas: "left center right";
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  margin: -16px;
+
+  [class*="btn"] {
+    margin: 16px;
+  }
+}
+
+.btn-outline {
+  outline: none;
+  width: 102px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1.5px solid #2684ff;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: #2684ff;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #2684ff;
+    color: #fff;
+  }
+}
+
+.btn {
+  outline: none;
+  width: 102px;
+  height: 36px;
+  border: 1.5px solid #2684ff;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #2684ff;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: #2684ff;
+  }
+}

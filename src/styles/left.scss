@@ -1,0 +1,34 @@
+.left {
+  grid-area: left;
+  padding-top: 24px;
+}
+
+.left__title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-left: 2px;
+}
+
+.left__company {
+  width: 248px;
+  height: 88px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 rgba(25, 15, 0, 0.1);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.left__company img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin: 24px;
+}
+
+.left__company-desc {
+  font-size: 14px;
+}

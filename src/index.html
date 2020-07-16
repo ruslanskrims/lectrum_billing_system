@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap"
+      rel="stylesheet">
+    <title>Lectrum</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <h1 class="left__title">
+          Available payments
+        </h1>
+        <div class="left__company">
+          <img src="img/taxes.svg" class="taxes" />
+          <p class="left__company-desc">Taxes</p>
+        </div>
+        <div class="left__company">
+          <img src="img/water.svg" class="taxes" />
+          <p class="left__company-desc">Cold water</p>
+        </div>
+        <div class="left__company">
+          <img src="img/internet.svg" class="taxes" />
+          <p class="left__company-desc">Internet</p>
+        </div>
+        <div class="left__company">
+          <img src="img/security.svg" class="taxes" />
+          <p class="left__company-desc">Security</p>
+        </div>
+        <div class="left__company">
+          <img src="img/exchange.svg" class="taxes" />
+          <p class="left__company-desc">Currency purchase</p>
+        </div>
+      </div>
+      <div class="center">
+        <h2 class="center__title">Cold water</h2>
+        <p class="center__desc">Payment of cold water supply</p>
+        <p class="center__select-meters">
+          <label for="cars">
+            <span>Select Meter</span>
+            <select id="cars">
+              <option value="DS949321">DS 949321</option>
+              <option value="QA522010">QA 522010</option>
+              <option value="LK309123">LK 309123</option>
+              <option value="LK309123">LK 309123</option>
+              <option value="GC123309">GC 123309</option>
+              <option value="WE331209">WE 331209</option>
+            </select>
+          </label>
+        </p>
+        <form class="center__form">
+          <div class="form__data">
+            <div class="data__wrapper">
+              <div class="data__item data__previous">
+                <label for="previous">
+                  <span>Previous</span>
+                  <input id="previous" name="previous" type="text" autocomplete="off"
+                    pattern="[0-9]{0,12}" />
+                </label>
+              </div>
+              <div class="data__item data__current">
+                <label for="current">
+                  <span>Current</span>
+                  <input id="current" name="current" type="text" autocomplete="off"
+                    pattern="[0-9]{0,12}" />
+                </label>
+              </div>
+              <div class="data__item data__payment">
+                <label for="payment">
+                  <span>Current on the payment date</span>
+                  <input id="payment" name="payment" type="text" autocomplete="off"
+                    pattern="[0-9]{0,12}" />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form__summary">
+            <p class="form__summary-title">For payment</p>
+            <ul class="form__summary-list">
+              <li class="list__item">
+                <p><span class="list__item-label">DS 949321</span>
+                  <span class="price">$ <b>621</b></span>
+                </p>
+              </li>
+              <li class="list__item">
+                <p><span class="list__item-label">QA 522010</span>
+                  <span class="price">$ <b>902</b></span>
+                </p>
+              </li>
+              <li class="list__item">
+                <p><span class="list__item-label">LK 309123</span>
+                  <span class="price">$ <b>173</b></span>
+                </p>
+              </li>
+              <li class="list__item list__total">
+                <p><span class="list__item-label">Total</span>
+                  <span class="price">$ <b>1 696</b></span>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="form__footer">
+            <div class="button-wrapper">
+              <button class="btn-outline" type="reset">Clear</button>
+              <button class="btn" type="submit">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="right">
+        <h2 class="right__title">Saved Payments</h2>
+        <form class="right__payments">
+          <div class="right__payments-fields">
+            <p class="right__payments-field">
+              <label>
+                <input type="checkbox" checked/>
+                <span>Taxes</span>
+              </label>
+            </p>
+            <p class="right__payments-field">
+              <label>
+                <input type="checkbox" />
+                <span>Cold water</span>
+              </label>
+            </p>
+            <p class="right__payments-field">
+              <label>
+                <input type="checkbox" />
+                <span>Internet</span>
+              </label>
+            </p>
+            <p class="right__payments-field">
+              <label>
+                <input type="checkbox" checked/>
+                <span>Security</span>
+              </label>
+            </p>
+            <p class="right__payments-field">
+              <label>
+                <input type="checkbox" />
+                <span>Currency purchase</span>
+              </label>
+            </p>
+          </div>
+          <div class="right__payments-footer">
+            <button class="btn" type="submit">Pay</button>
+          </div>
+        </form>
+        <div class="right__transactions">
+          <p class="transactions__title">Transactions</p>
+          <ul class="transactions__list">
+            <li class="list__item">Taxes: Successful payment</li>
+            <li class="list__item list__item-error">Security: Transaction error</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+.right {
+  grid-area: right;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 10px;
+
+  .right__title {
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #253858;
+  }
+
+  .right__saved-payments {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right__payments-field {
+    height: 24px;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    input[type="checkbox"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      clip: rect(0, 0, 0, 0);
+      overflow: hidden;
+    }
+
+    label {
+      cursor: pointer;
+
+      span {
+        font-size: 14px;
+        line-height: 1.43;
+        color: #253858;
+
+        &:before {
+          content: "\00a0";
+          display: inline-block;
+          vertical-align: baseline;
+          width: 24px;
+          height: 24px;
+          line-height: 24px - 4px;
+          box-sizing: border-box;
+          background: #fff no-repeat center;
+          border: solid 1.5px rgba(146, 155, 171, 0.3);
+          flex-shrink: 0;
+          background-size: 17px;
+          margin-right: 15px;
+          border-radius: 6px;
+        }
+      }
+
+      input:checked + {
+        span {
+          &:before {
+            background-image: url("../../public/img/done.svg");
+            border: 1.5px solid #2684ff;
+          }
+        }
+      }
+    }
+  }
+
+  .right__payments-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px 0;
+    margin: 0 -8px;
+  }
+
+  .right__transactions {
+    position: relative;
+    padding-top: 24px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -8px;
+      right: -8px;
+      height: 1px;
+      background-color: #bbc1cc;
+    }
+
+    .transactions__title {
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #253858;
+    }
+
+    .transactions__list {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .list__item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.43;
+      color: #253858;
+
+      &:not(:last-child) {
+        margin-bottom: 14px;
+      }
+
+      &:before {
+        content: "";
+        display: inline-block;
+        margin-right: 13px;
+        width: 16px;
+        height: 16px;
+        background-image: url("../../public/img/posotove-answer.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    .list__item-error {
+      color: #e8344d;
+
+      &:before {
+        background-image: url("../../public/img/negative-answer.svg");
+      }
+    }
+  }
+}
