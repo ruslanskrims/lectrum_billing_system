@@ -1,4 +1,4 @@
-# Lectrum JS personal prject boilerplate
+# Lectrum JS personal prject
 
 
 ### Installation
