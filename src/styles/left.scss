@@ -21,6 +21,9 @@
   margin-bottom: 24px;
   cursor: pointer;
   z-index: 1000;
+  &.clicked {
+    background-color: #ccc;
+  }
 }
 
 .left__company img {
