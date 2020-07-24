@@ -3,13 +3,8 @@
   "version": "0.0.4",
   "description": "Lectrum JS + ES6 course personal project",
   "author": {
-<<<<<<< HEAD
-    "name": "Andrey Prisniak",
-    "email": "aprisniak@lectrum.io"
-=======
     "name": "Ruslans Krims",
     "email": "krims.ruslan@gmail.com"
->>>>>>> 5bb942f863c518d7797404e3e979c33d5637c1d1
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js  --colors",
