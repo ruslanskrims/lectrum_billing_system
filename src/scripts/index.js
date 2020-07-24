@@ -12,9 +12,11 @@ let mainTitle = document.getElementsByClassName("center__title")[0];
 let mainDescription = document.getElementsByClassName("center__desc")[0];
 const centerForm = document.getElementById("center__form");
 let centerFormFields = centerForm.getElementsByTagName("input");
+const saveBtn = document.getElementById("saveBtn");
+const resetBtn = document.getElementById("resetBtn");
 
 //---TASK 1
-companyItems.forEach((element) => {
+companies.children.forEach((element) => {
   element.addEventListener("click", (event) => {
     const id = event.target.getAttribute("data-id");
     const chosenElement = document.querySelector(`[data-id=${id}]`);
@@ -29,10 +31,23 @@ companyItems.forEach((element) => {
     const main = (mainTitle.innerHTML = chosenElement.textContent);
     mainDescription.innerHTML = `Payment of the ${main} supply`;
     payment.id = id;
+
+    saveBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const previousValue = payment.previous;
+      const currentValue = payment.current;
+
+      for (const key in tarifs) {
+        if (id === key) {
+          payment.total = (currentValue - previousValue) * tarifs[key];
+        }
+      }
+      payments.push(payment);
+      payment = {};
+    });
   });
 });
 
-console.log(payment);
 ///-----
 
 ///-----TASK 2
@@ -40,30 +55,26 @@ console.log(payment);
 meters.onchange = (event) => {
   const { value } = event.target;
   payment.meterId = value;
-  console.log(payment);
 };
 
 centerFormFields.forEach((element) => {
   element.onchange = (event) => {
     const { value } = event.target;
-    const id = event.target.getAttribute("id");
+    const fieldId = event.target.getAttribute("id");
 
-    switch (id) {
+    switch (fieldId) {
       case "previous":
-        payment.previous = value;
+        payment.previous = Number(value);
         break;
       case "current":
-        payment.current = value;
+        payment.current = Number(value);
         break;
       case "payment":
-        payment.currentOnDate = value;
+        payment.currentOnDate = Number(value);
         break;
       default:
         null;
         break;
     }
-    console.log(id);
-    console.log(value);
-    console.log(payment);
   };
 });
