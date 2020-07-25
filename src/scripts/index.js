@@ -15,50 +15,65 @@ let centerFormFields = centerForm.getElementsByTagName("input");
 const saveBtn = document.getElementById("saveBtn");
 const resetBtn = document.getElementById("resetBtn");
 
+const totalValueField = document
+  .getElementById("total__field")
+  .getElementsByTagName("b")[0];
+
 //---TASK 1
-companies.children.forEach((element) => {
-  element.addEventListener("click", (event) => {
-    const id = event.target.getAttribute("data-id");
-    const chosenElement = document.querySelector(`[data-id=${id}]`);
+companies.onclick = (event) => {
+  const id = event.target.getAttribute("data-id");
+  const chosenElement = document.querySelector(`[data-id=${id}]`);
 
-    //toggle style solution
-    companyItems.forEach((chosenElement) => {
-      chosenElement.className = "left__company";
-    });
-
-    chosenElement.className = "left__company clicked";
-
-    const main = (mainTitle.innerHTML = chosenElement.textContent);
-    mainDescription.innerHTML = `Payment of the ${main} supply`;
-    payment.id = id;
-
-    saveBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      const previousValue = payment.previous;
-      const currentValue = payment.current;
-
-      for (const key in tarifs) {
-        if (id === key) {
-          payment.total = (currentValue - previousValue) * tarifs[key];
-        }
-      }
-      payments.push(payment);
-      payment = {};
-    });
+  //toggle style solution
+  companyItems.forEach((chosenElement) => {
+    chosenElement.className = "left__company";
   });
-});
 
+  chosenElement.className = "left__company clicked";
+
+  const main = (mainTitle.innerHTML = chosenElement.textContent);
+  mainDescription.innerHTML = `Payment of the ${main} supply`;
+  payment.id = id;
+
+  saveBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    const previousValue = payment.previous;
+    const currentValue = payment.current;
+
+    payment.total =
+      !previousValue && !currentValue
+        ? 0
+        : (currentValue - previousValue) * tarifs[payment.id];
+    console.log(payment);
+
+    const newLi = `<li class="list__item">
+                    <p>
+                  <span class="list__item-label" id=${payment.meterId}>${
+      payment.meterId
+    }</span>
+                  <span class="price"><b>$ ${payment.total.toFixed(
+                    2
+                  )}</b></span>
+                </p>
+              </li>`;
+    document
+      .querySelectorAll("#form__summary-list")[0]
+      .insertAdjacentHTML("afterbegin", newLi);
+
+    totalValueField.innerHTML = payment.total.toFixed(2);
+  });
+};
 ///-----
-
 ///-----TASK 2
 
 meters.onchange = (event) => {
   const { value } = event.target;
   payment.meterId = value;
+  console.log(value);
 };
 
 centerFormFields.forEach((element) => {
-  element.onchange = (event) => {
+  element.oninput = (event) => {
     const { value } = event.target;
     const fieldId = event.target.getAttribute("id");
 
@@ -78,3 +93,9 @@ centerFormFields.forEach((element) => {
     }
   };
 });
+
+resetBtn.onclick = (event) => {
+  event.preventDefault();
+  payments = [];
+  console.log(payments);
+};

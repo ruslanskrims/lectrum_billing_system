@@ -95,26 +95,26 @@
           </div>
           <div class="form__summary">
             <p class="form__summary-title">For payment</p>
-            <ul class="form__summary-list">
-              <li class="list__item">
+            <ul class="form__summary-list" id="form__summary-list">
+              <!-- <li class="list__item">
                 <p>
-                  <span class="list__item-label">DS 949321</span>
+                  <span class="list__item-label" id="DS949321">DS 949321</span>
                   <span class="price">$ <b>0</b></span>
                 </p>
               </li>
               <li class="list__item">
                 <p>
-                  <span class="list__item-label">QA 522010</span>
+                  <span class="list__item-label" id="QA522010">QA 522010</span>
                   <span class="price">$ <b>0</b></span>
                 </p>
               </li>
               <li class="list__item">
                 <p>
-                  <span class="list__item-label">LK 309123</span>
+                  <span class="list__item-label" id="LK309123">LK 309123</span>
                   <span class="price">$ <b>0</b></span>
                 </p>
-              </li>
-              <li class="list__item list__total">
+              </li> -->
+              <li class="list__item list__total" id="total__field">
                 <p>
                   <span class="list__item-label">Total</span>
                   <span class="price">$ <b>0</b></span>
@@ -124,17 +124,17 @@
           </div>
           <div class="form__footer">
             <div class="button-wrapper">
-              <button class="btn-outline" type="reset" id='clearBtn'>Clear</button>
+              <button class="btn-outline" type="reset" id='resetBtn'>Clear</button>
               <button class="btn" type="submit" id='saveBtn'>Save</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="right">
+      <div class="right" id='right'>
         <h2 class="right__title">Saved Payments</h2>
         <form class="right__payments">
           <div class="right__payments-fields">
-            <p class="right__payments-field">
+            <!-- <p class="right__payments-field">
               <label>
                 <input type="checkbox" />
                 <span>Taxes</span>
@@ -163,7 +163,7 @@
                 <input type="checkbox" />
                 <span>Currency purchase</span>
               </label>
-            </p>
+            </p> -->
           </div>
           <div class="right__payments-footer">
             <button class="btn" type="submit">Pay</button>
