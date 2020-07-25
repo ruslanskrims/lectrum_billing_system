@@ -14,7 +14,8 @@ const centerForm = document.getElementById("center__form");
 let centerFormFields = centerForm.getElementsByTagName("input");
 const saveBtn = document.getElementById("saveBtn");
 const resetBtn = document.getElementById("resetBtn");
-
+const form = document.getElementById("center__form");
+const formParent = document.getElementById("form__summary-list");
 const totalValueField = document
   .getElementById("total__field")
   .getElementsByTagName("b")[0];
@@ -44,6 +45,7 @@ companies.onclick = (event) => {
       !previousValue && !currentValue
         ? 0
         : (currentValue - previousValue) * tarifs[payment.id];
+
     console.log(payment);
 
     const newLi = `<li class="list__item">
@@ -56,11 +58,13 @@ companies.onclick = (event) => {
                   )}</b></span>
                 </p>
               </li>`;
-    document
-      .querySelectorAll("#form__summary-list")[0]
-      .insertAdjacentHTML("afterbegin", newLi);
+    const item = document.querySelectorAll("#form__summary-list")[0];
+    item.insertAdjacentHTML("afterbegin", newLi);
 
     totalValueField.innerHTML = payment.total.toFixed(2);
+    payment = {};
+    console.log(payment);
+    form.reset();
   });
 };
 ///-----
