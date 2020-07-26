@@ -21,50 +21,62 @@ const payContainer = document.getElementsByClassName("right__payments-fields");
 
 //---TASK 1
 
-companies.onclick = (event) => {
-  const id = event.target.getAttribute("data-id");
-  const chosenElement = document.querySelector(`[data-id=${id}]`);
+const savePayment = () => {
+  const previousValue = payment.previous;
+  const currentValue = payment.current;
 
-  //toggle style solution
+  payment.total =
+    !previousValue && !currentValue
+      ? 0
+      : (currentValue - previousValue) * tarifs[payment.id];
+
+  totalValueField.innerHTML = payment.total;
+  payments.push(payment);
+  const idCapitalized =
+    payment.id.charAt(0).toUpperCase() + payment.id.slice(1);
+  const newCheckbox = `<p class="right__payments-field">
+              <label>
+                <input type="checkbox" checked />
+                <span>${idCapitalized}</span>
+              </label>
+            </p>`;
+  document
+    .querySelector(".right__payments-fields")
+    .insertAdjacentHTML("beforeend", newCheckbox);
+
+  payment = {};
+};
+
+const resetForm = () => {
+  payments = [];
+  document.querySelector(".right__payments-fields").remove();
   companyItems.forEach((chosenElement) => {
     chosenElement.className = "left__company";
   });
 
+  console.log(payments);
+};
+
+companies.onclick = (event) => {
+  const id = event.target.getAttribute("data-id");
+  const chosenElement = document.querySelector(`[data-id=${id}]`);
+
+  companyItems.forEach((chosenElement) => {
+    chosenElement.className = "left__company";
+  });
   chosenElement.className = "left__company clicked";
 
   const main = (mainTitle.innerHTML = chosenElement.textContent);
   mainDescription.innerHTML = `Payment of the ${main} supply`;
   payment.id = id;
 
-  saveBtn.addEventListener("click", (event) => {
+  saveBtn.onclick = (event) => {
     event.preventDefault();
-    const previousValue = payment.previous;
-    const currentValue = payment.current;
-
-    payment.total =
-      !previousValue && !currentValue
-        ? 0
-        : (currentValue - previousValue) * tarifs[payment.id];
-
-    totalValueField.innerHTML = payment.total;
-    payments.push(payment);
-    const idCapitalized =
-      payment.id.charAt(0).toUpperCase() + payment.id.slice(1);
-    const newCheckbox = `<p class="right__payments-field">
-              <label>
-                <input type="checkbox" checked />
-                <span>${idCapitalized}</span>
-              </label>
-            </p>`;
-    document
-      .querySelector(".right__payments-fields")
-      .insertAdjacentHTML("beforeend", newCheckbox);
-
-    payment = {};
-
+    savePayment();
     centerForm.reset();
-  });
+  };
 };
+
 ///-----
 ///-----TASK 2
 
@@ -98,11 +110,5 @@ centerFormFields.forEach((element) => {
 
 resetBtn.onclick = (event) => {
   event.preventDefault();
-  payments = [];
-  document.querySelector(".right__payments-fields").remove();
-  companyItems.forEach((chosenElement) => {
-    chosenElement.className = "left__company";
-  });
-
-  console.log(payments);
+  resetForm();
 };
