@@ -71,6 +71,7 @@ companies.onclick = (event) => {
 meters.onchange = (event) => {
   const { value } = event.target;
   payment.meterId = value;
+  //   console.log(value);
 };
 
 centerFormFields.forEach((element) => {
@@ -98,5 +99,10 @@ centerFormFields.forEach((element) => {
 resetBtn.onclick = (event) => {
   event.preventDefault();
   payments = [];
+  document.querySelector(".right__payments-fields").remove();
+  companyItems.forEach((chosenElement) => {
+    chosenElement.className = "left__company";
+  });
+
   console.log(payments);
 };
