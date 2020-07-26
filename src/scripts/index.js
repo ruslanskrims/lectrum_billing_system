@@ -14,13 +14,13 @@ const centerForm = document.getElementById("center__form");
 let centerFormFields = centerForm.getElementsByTagName("input");
 const saveBtn = document.getElementById("saveBtn");
 const resetBtn = document.getElementById("resetBtn");
-const form = document.getElementById("center__form");
-const formParent = document.getElementById("form__summary-list");
 const totalValueField = document
   .getElementById("total__field")
   .getElementsByTagName("b")[0];
+const payContainer = document.getElementsByClassName("right__payments-fields");
 
 //---TASK 1
+
 companies.onclick = (event) => {
   const id = event.target.getAttribute("data-id");
   const chosenElement = document.querySelector(`[data-id=${id}]`);
@@ -46,25 +46,23 @@ companies.onclick = (event) => {
         ? 0
         : (currentValue - previousValue) * tarifs[payment.id];
 
-    console.log(payment);
+    totalValueField.innerHTML = payment.total;
+    payments.push(payment);
+    const idCapitalized =
+      payment.id.charAt(0).toUpperCase() + payment.id.slice(1);
+    const newCheckbox = `<p class="right__payments-field">
+              <label>
+                <input type="checkbox" checked />
+                <span>${idCapitalized}</span>
+              </label>
+            </p>`;
+    document
+      .querySelector(".right__payments-fields")
+      .insertAdjacentHTML("beforeend", newCheckbox);
 
-    const newLi = `<li class="list__item">
-                    <p>
-                  <span class="list__item-label" id=${payment.meterId}>${
-      payment.meterId
-    }</span>
-                  <span class="price"><b>$ ${payment.total.toFixed(
-                    2
-                  )}</b></span>
-                </p>
-              </li>`;
-    const item = document.querySelectorAll("#form__summary-list")[0];
-    item.insertAdjacentHTML("afterbegin", newLi);
-
-    totalValueField.innerHTML = payment.total.toFixed(2);
     payment = {};
-    console.log(payment);
-    form.reset();
+
+    centerForm.reset();
   });
 };
 ///-----
@@ -73,7 +71,6 @@ companies.onclick = (event) => {
 meters.onchange = (event) => {
   const { value } = event.target;
   payment.meterId = value;
-  console.log(value);
 };
 
 centerFormFields.forEach((element) => {
