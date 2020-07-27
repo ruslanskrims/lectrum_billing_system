@@ -1,5 +1,4 @@
 import "../styles/index.scss";
-
 import { tarifs } from "./constants";
 
 let payments = [];
@@ -12,55 +11,61 @@ let mainTitle = document.getElementsByClassName("center__title")[0];
 let mainDescription = document.getElementsByClassName("center__desc")[0];
 const centerForm = document.getElementById("center__form");
 let centerFormFields = centerForm.getElementsByTagName("input");
-const saveBtn = document.getElementById("saveBtn");
-const resetBtn = document.getElementById("resetBtn");
+const formSummaryList = document.getElementById("form__summary-list");
+const resetBtn = document.getElementById("reset__btn");
+
 const totalValueField = document
   .getElementById("total__field")
   .getElementsByTagName("b")[0];
-const payContainer = document.getElementsByClassName("right__payments-fields");
 
-//---TASK 1
+const insertNewLi = (payment) => {
+  const li = `<li class="list__item item">
+            <p>
+                <span class="list__item-label" >${payment.meterId}</span>
+                  <span class="price">$<b>${payment.total}</b></span>
+            </p>
+    </li>`;
+  formSummaryList.insertAdjacentHTML("afterBegin", li);
+};
+
+const setTotalValue = (total) => {
+  let sum = Number(totalValueField.innerHTML);
+  sum = sum + total;
+  totalValueField.innerHTML = Number(sum.toFixed(2));
+};
 
 const savePayment = () => {
-  const previousValue = payment.previous;
-  const currentValue = payment.current;
-
-  payment.total =
-    !previousValue && !currentValue
-      ? 0
-      : (currentValue - previousValue) * tarifs[payment.id];
-
-  totalValueField.innerHTML = payment.total;
+  const { previous, current, id } = payment;
+  payment.total = !previous && !current ? 0 : (current - previous) * tarifs[id];
   payments.push(payment);
-  const idCapitalized =
-    payment.id.charAt(0).toUpperCase() + payment.id.slice(1);
-  const newCheckbox = `<p class="right__payments-field">
-              <label>
-                <input type="checkbox" checked />
-                <span>${idCapitalized}</span>
-              </label>
-            </p>`;
-  document
-    .querySelector(".right__payments-fields")
-    .insertAdjacentHTML("beforeend", newCheckbox);
+  insertNewLi(payment);
+};
 
-  payment = {};
+centerForm.onsubmit = (event) => {
+  event.preventDefault();
+  centerForm.reset();
+  savePayment();
+  setTotalValue(payment.total);
 };
 
 const resetForm = () => {
   payments = [];
-  document.querySelector(".right__payments-fields").remove();
+  //   document.querySelector(".right__payments-fields").remove();
   companyItems.forEach((chosenElement) => {
     chosenElement.className = "left__company";
   });
-
-  console.log(payments);
+  totalValueField.innerHTML = 0;
+  const element = Array.from(formSummaryList.children);
+  element.forEach((item) => {
+    if (!item.id) {
+      item.remove();
+    }
+  });
 };
 
 companies.onclick = (event) => {
   const id = event.target.getAttribute("data-id");
   const chosenElement = document.querySelector(`[data-id=${id}]`);
-
   companyItems.forEach((chosenElement) => {
     chosenElement.className = "left__company";
   });
@@ -69,21 +74,11 @@ companies.onclick = (event) => {
   const main = (mainTitle.innerHTML = chosenElement.textContent);
   mainDescription.innerHTML = `Payment of the ${main} supply`;
   payment.id = id;
-
-  saveBtn.onclick = (event) => {
-    event.preventDefault();
-    savePayment();
-    centerForm.reset();
-  };
 };
-
-///-----
-///-----TASK 2
 
 meters.onchange = (event) => {
   const { value } = event.target;
   payment.meterId = value;
-  //   console.log(value);
 };
 
 centerFormFields.forEach((element) => {
@@ -105,6 +100,7 @@ centerFormFields.forEach((element) => {
         null;
         break;
     }
+    console.log(payment);
   };
 });
 
