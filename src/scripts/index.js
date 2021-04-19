@@ -1,110 +1,275 @@
-import "../styles/index.scss";
-import { tarifs } from "./constants";
+// import '../styles/index.scss';
+
+// import { tarifs } from './constants';
+
+// let payments = [];
+// let paymentsBackup = [];
+// let payment = {};
+// const totalSumValues = [];
+// let companyNameGlobal;
+
+// const companies = document.getElementById('companies');
+// const centerTitle = document.getElementsByClassName('center__title')[0];
+// const centerDesc = document.getElementsByClassName('center__desc')[0];
+// const meters = document.getElementById('meters');
+// const currentCounts = document.getElementById('current');
+// const previousCounts = document.getElementById('previous');
+// const currentOnDate = document.getElementById('payment');
+// const buttonClear = document.getElementsByTagName('button')[0];
+// const buttonSubmit = document.getElementsByTagName('button')[1];
+// const buttonPay = document.getElementsByTagName('button')[2];
+// const ul = document.querySelectorAll('.form__summary-list')[0];
+// const forPaymentTitle = document.getElementsByClassName('form__summary-title')[0];
+// const checkBoxesRow = document.getElementsByClassName('right__payments-field');
+// const transactions = document.querySelectorAll('.transactions__list')[0];
+
+// companies.onclick = (event) => {
+
+//     const id = event.target.getAttribute('data-id');
+//     const element = document.querySelector(`[data-id=${id}]`);
+
+//     const companyChildren = companies.children;
+//     for (const item of companyChildren) {
+//         if (item.hasAttribute('style')) {
+//             item.removeAttribute('style');
+//         }
+//     }
+//     element.style = "background-color: #ccc;";
+
+//     payment.id = id;
+
+//     const companyName = element.textContent.trim();
+//     centerTitle.innerHTML = companyName;
+//     centerDesc.innerHTML = `Payment of ${companyName.toLowerCase()} supply`;
+//     companyNameGlobal = companyName;
+// };
+
+// meters.onchange = (event) => {
+//     const { value } = event.target;
+//     payment.meterId = value;
+// };
+
+// currentCounts.oninput = (event) => {
+//     const { value } = event.target;
+//     payment.currentCount = value;
+// };
+
+// previousCounts.oninput = (event) => {
+//     const { value } = event.target;
+//     payment.previousCount = value;
+// };
+
+// currentOnDate.oninput = (event) => {
+//     const { value } = event.target;
+//     payment.currentOnDatePayment = value;
+// };
+
+// buttonSubmit.onclick = (event) => {
+//     event.preventDefault();
+
+//     ul.insertAdjacentHTML('afterbegin', `
+//     <li class="list__item">
+//         <p><span class="list__item-label">Select a meter</span>
+//             <span class="price">$ <b>0</b></span>
+//         </p>
+//     </li>`);
+//     const meterNumber = document.querySelectorAll('.list__item-label')[0];
+//     meterNumber.innerHTML = (!payment.meterId) ? 'Select a meter' : payment.meterId;
+
+//     const meterValue = document.querySelectorAll('.price')[0].lastChild;
+//     payment.total = (!payment.currentCount && !payment.previousCount) 
+//     ? 0 : (payment.currentCount - payment.previousCount) * tarifs[payment.id];
+
+//     meterValue.innerHTML = payment.total * 10 / 10;
+
+//     totalSumValues.push(payment.total * 10);
+
+//     const totalSum = totalSumValues.reduce((accumulator, currentValue) => accumulator + currentValue);
+//     const totalList = document.getElementsByClassName('list__total');
+//     const totalId = totalList[0].getElementsByTagName('b');
+//     totalId[0].innerHTML = totalSum / 10;
+
+//     for (const row of checkBoxesRow) {
+//         const checkInput = row.getElementsByTagName('input')[0];
+//         const checkSpan = row.getElementsByTagName('span')[0].textContent;
+
+//         if (checkSpan === companyNameGlobal) {
+//             checkInput.checked = true;
+//         }
+//     }
+     
+//     payments.push(payment);
+//     document.getElementById("form").reset();
+// };
+
+// buttonClear.onclick = () => {
+//     paymentsBackup = payments;
+//     payments = [];
+//     ul.remove();
+//     forPaymentTitle.insertAdjacentHTML('afterend', `
+//     <ul class="form__summary-list">
+//         <li class="list__item list__total">
+//             <p><span class="list__item-label">Total</span>
+//                 <span class="price">$ <b>0</b></span>
+//             </p>
+//         </li>
+//     </ul>`);
+
+//     for (const row of checkBoxesRow) {
+//         const checkInput = row.getElementsByTagName('input')[0];
+//         checkInput.checked = false;
+//     }
+// };
+
+// buttonPay.onclick = (event) => {
+//     event.preventDefault();
+
+//     for (const row of checkBoxesRow) {
+//         const checkInput = row.getElementsByTagName('input')[0];
+//         const checkSpan = row.getElementsByTagName('span')[0].textContent;
+
+//         if (checkInput.checked) {
+//             console.log(`ID платежа: ${checkSpan}  оплачено`);
+//             setTimeout(() => transactions.insertAdjacentHTML('afterbegin',
+//             `<li class="list__item">${checkSpan}: Successful payment</li>`), 1000);
+//         }
+//     }
+// };
+
+import '../styles/index.scss';
+
+import { tarifs } from './constants';
 
 let payments = [];
+let paymentsBackup = [];
 let payment = {};
+const totalSumValues = [];
+let serviceNameGlobal;
 
-const companies = document.getElementById("companies");
-const companyItems = document.querySelectorAll(".left__company");
-const meters = document.getElementById("meters");
-let mainTitle = document.getElementsByClassName("center__title")[0];
-let mainDescription = document.getElementsByClassName("center__desc")[0];
-const centerForm = document.getElementById("center__form");
-let centerFormFields = centerForm.getElementsByTagName("input");
-const formSummaryList = document.getElementById("form__summary-list");
-const resetBtn = document.getElementById("reset__btn");
+const companies = document.getElementById('companies');
+const paymentTitleCenter = document.getElementsByClassName('center__title')[0];
+const centerDesc = document.getElementsByClassName('center__desc')[0];
+const meters = document.getElementById('meters');
+const currentCounts = document.getElementById('current');
+const previousCounts = document.getElementById('previous');
+const currentOnDate = document.getElementById('payment');
 
-const totalValueField = document
-  .getElementById("total__field")
-  .getElementsByTagName("b")[0];
+const buttonClear = document.getElementsByTagName('button')[0];
+const submitBtn = document.getElementsByTagName('button')[1];
+const buttonPay = document.getElementsByTagName('button')[2];
+const ul = document.querySelectorAll('.form__summary-list')[0];
+const forPaymentTitle = document.getElementsByClassName('form__summary-title')[0];
+const checkBoxesRow = document.getElementsByClassName('right__payments-field');
+const transactions = document.querySelectorAll('.transactions__list')[0];
 
-const insertNewLi = (payment) => {
-  const li = `<li class="list__item item">
-            <p>
-                <span class="list__item-label" >${payment.meterId}</span>
-                  <span class="price">$<b>${payment.total}</b></span>
-            </p>
-    </li>`;
-  formSummaryList.insertAdjacentHTML("afterBegin", li);
-};
-
-const setTotalValue = (total) => {
-  let sum = Number(totalValueField.innerHTML);
-  sum = sum + total;
-  totalValueField.innerHTML = Number(sum.toFixed(2));
-};
-
-const savePayment = () => {
-  const { previous, current, id } = payment;
-  payment.total = !previous && !current ? 0 : (current - previous) * tarifs[id];
-  payments.push(payment);
-  insertNewLi(payment);
-};
-
-centerForm.onsubmit = (event) => {
-  event.preventDefault();
-  centerForm.reset();
-  savePayment();
-  setTotalValue(payment.total);
-};
-
-const resetForm = () => {
-  payments = [];
-  //   document.querySelector(".right__payments-fields").remove();
-  companyItems.forEach((chosenElement) => {
-    chosenElement.className = "left__company";
-  });
-  totalValueField.innerHTML = 0;
-  const element = Array.from(formSummaryList.children);
-  element.forEach((item) => {
-    if (!item.id) {
-      item.remove();
-    }
-  });
-};
 
 companies.onclick = (event) => {
-  const id = event.target.getAttribute("data-id");
-  const chosenElement = document.querySelector(`[data-id=${id}]`);
-  companyItems.forEach((chosenElement) => {
-    chosenElement.className = "left__company";
-  });
-  chosenElement.className = "left__company clicked";
 
-  const main = (mainTitle.innerHTML = chosenElement.textContent);
-  mainDescription.innerHTML = `Payment of the ${main} supply`;
-  payment.id = id;
+    const id = event.target.getAttribute('data-id');
+    const element = document.querySelector(`[data-id=${id}]`);
+
+    for (const item of companies.children) {
+        if (item.hasAttribute('style')) {
+            item.removeAttribute('style');
+        }
+    }
+    element.style.backgroundColor = "#ccc";
+
+    payment.id = id;
+
+    const serviceTitle = element.textContent.trim();
+    paymentTitleCenter.innerHTML = serviceTitle;
+    centerDesc.innerHTML = `Payment of ${serviceTitle.toLowerCase()} supply`;
+    serviceNameGlobal = serviceTitle;
 };
 
 meters.onchange = (event) => {
-  const { value } = event.target;
-  payment.meterId = value;
-};
-
-centerFormFields.forEach((element) => {
-  element.oninput = (event) => {
     const { value } = event.target;
-    const fieldId = event.target.getAttribute("id");
-
-    switch (fieldId) {
-      case "previous":
-        payment.previous = Number(value);
-        break;
-      case "current":
-        payment.current = Number(value);
-        break;
-      case "payment":
-        payment.currentOnDate = Number(value);
-        break;
-      default:
-        null;
-        break;
-    }
-    console.log(payment);
-  };
-});
-
-resetBtn.onclick = (event) => {
-  event.preventDefault();
-  resetForm();
+    payment.meterId = value;
 };
+
+currentCounts.oninput = (event) => {
+    const { value } = event.target;
+    payment.currentCount = value;
+};
+
+previousCounts.oninput = (event) => {
+    const { value } = event.target;
+    payment.previousCount = value;
+};
+
+currentOnDate.oninput = (event) => {
+    const { value } = event.target;
+    payment.currentOnDatePayment = value;
+};
+//ПОНЯТНО
+submitBtn.onclick = (event) => {
+    event.preventDefault();
+    ul.insertAdjacentHTML('afterbegin', `
+    <li class="list__item">
+        <p><span class="list__item-label">Select a meter</span>
+            <span class="price">$ <b>0</b></span>
+        </p>
+    </li>`);
+    const meterNumber = document.querySelectorAll('.list__item-label')[0];
+    meterNumber.innerHTML = (!payment.meterId) ? 'Select a meter' : payment.meterId;
+
+    const meterValue = document.querySelectorAll('.price')[0].lastChild;
+    payment.total = (!payment.currentCount && !payment.previousCount) 
+    ? 0 : (payment.currentCount - payment.previousCount) * tarifs[payment.id];
+
+    meterValue.innerHTML = payment.total * 10 / 10;
+
+    totalSumValues.push(payment.total * 10);
+
+    const totalSum = totalSumValues.reduce((accumulator, currentValue) => accumulator + currentValue);
+    const totalList = document.getElementsByClassName('list__total');
+    const totalId = totalList[0].getElementsByTagName('b');
+    totalId[0].innerHTML = totalSum / 10;
+
+    for (const row of checkBoxesRow) {
+        const checkInput = row.getElementsByTagName('input')[0];
+        const checkSpan = row.getElementsByTagName('span')[0].textContent;
+
+        if (checkSpan === serviceNameGlobal) {
+            checkInput.checked = true;
+        }
+    }
+     
+    payments.push(payment);
+    document.getElementById("form").reset();
+};
+
+// buttonClear.onclick = () => {
+//     paymentsBackup = payments;
+//     payments = [];
+//     ul.remove();
+//     forPaymentTitle.insertAdjacentHTML('afterend', `
+//     <ul class="form__summary-list">
+//         <li class="list__item list__total">
+//             <p><span class="list__item-label">Total</span>
+//                 <span class="price">$ <b>0</b></span>
+//             </p>
+//         </li>
+//     </ul>`);
+
+//     for (const row of checkBoxesRow) {
+//         const checkInput = row.getElementsByTagName('input')[0];
+//         checkInput.checked = false;
+//     }
+// };
+
+// buttonPay.onclick = (event) => {
+//     event.preventDefault();
+
+//     for (const row of checkBoxesRow) {
+//         const checkInput = row.getElementsByTagName('input')[0];
+//         const checkSpan = row.getElementsByTagName('span')[0].textContent;
+
+//         if (checkInput.checked) {
+//             console.log(`ID of the payment: ${checkSpan} is paid`);
+//             setTimeout(() => transactions.insertAdjacentHTML('afterbegin',
+//             `<li class="list__item">${checkSpan}: Successful payment</li>`), 1000);
+//         }
+//     }
+// };
