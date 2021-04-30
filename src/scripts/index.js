@@ -103,36 +103,36 @@ submitBtn.onclick = (event) => {
     document.getElementById("form").reset();
 };
 
-// buttonClear.onclick = () => {
-//     paymentsBackup = payments;
-//     payments = [];
-//     ul.remove();
-//     forPaymentTitle.insertAdjacentHTML('afterend', `
-//     <ul class="form__summary-list">
-//         <li class="list__item list__total">
-//             <p><span class="list__item-label">Total</span>
-//                 <span class="price">$ <b>0</b></span>
-//             </p>
-//         </li>
-//     </ul>`);
+buttonClear.onclick = () => {
+    paymentsBackup = payments;
+    payments = [];
+    ul.remove();
+    forPaymentTitle.insertAdjacentHTML('afterend', `
+    <ul class="form__summary-list">
+        <li class="list__item list__total">
+            <p><span class="list__item-label">Total</span>
+                <span class="price">$ <b>0</b></span>
+            </p>
+        </li>
+    </ul>`);
 
-//     for (const row of checkBoxesRow) {
-//         const checkInput = row.getElementsByTagName('input')[0];
-//         checkInput.checked = false;
-//     }
-// };
+    for (const row of checkBoxesRow) {
+        const checkInput = row.getElementsByTagName('input')[0];
+        checkInput.checked = false;
+    }
+};
 
-// buttonPay.onclick = (event) => {
-//     event.preventDefault();
+buttonPay.onclick = (event) => {
+    event.preventDefault();
 
-//     for (const row of checkBoxesRow) {
-//         const checkInput = row.getElementsByTagName('input')[0];
-//         const checkSpan = row.getElementsByTagName('span')[0].textContent;
+    for (const row of checkBoxesRow) {
+        const checkInput = row.getElementsByTagName('input')[0];
+        const checkSpan = row.getElementsByTagName('span')[0].textContent;
 
-//         if (checkInput.checked) {
-//             console.log(`ID of the payment: ${checkSpan} is paid`);
-//             setTimeout(() => transactions.insertAdjacentHTML('afterbegin',
-//             `<li class="list__item">${checkSpan}: Successful payment</li>`), 1000);
-//         }
-//     }
-// };
+        if (checkInput.checked) {
+            console.log(`ID of the payment: ${checkSpan} is paid`);
+            setTimeout(() => transactions.insertAdjacentHTML('afterbegin',
+            `<li class="list__item">${checkSpan}: Successful payment</li>`), 1000);
+        }
+    }
+};
